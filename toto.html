@@ -21,3 +21,32 @@
         <p><button>Valider</button></p>   
     </body>
 </html>
+#!/bin/bash
+
+# Modification de IFS
+IFS=', |'
+
+# Affichage des différentes variables positionnelles
+echo "Nombre de paramètres : $#"
+echo "Nom du script : $0"
+echo "Premier paramètre : $1"
+echo "Deuxième paramètre : $2"
+echo "Troisième paramètre : $3"
+echo "25ème paramètre : ${25}"
+
+# Affichage de la différence entre $@ et $*
+echo "Affichage avec \$@ :"
+echo "$@"
+echo "Affichage avec \$* :"
+echo "$*"
+
+# Pour vérifier la différence avec guillemets
+echo "Affichage avec \"\$@\" :"
+for param in "$@"; do
+    echo "  [$param]"
+done
+
+echo "Affichage avec \"\$*\" :"
+for param in "$*"; do
+    echo "  [$param]"
+done
