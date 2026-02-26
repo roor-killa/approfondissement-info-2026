@@ -21,3 +21,35 @@
         <p><button>Valider</button></p>   
     </body>
 </html>
+#!/bin/bash
+
+# Vérifier qu'un paramètre a été fourni
+if [ $# -ne 1 ]
+then
+    echo "Erreur : Veuillez fournir un nom de table"
+    echo "Usage: $0 nom_de_la_table"
+    exit 1
+fi
+
+# Récupérer le nom de la table
+tbl_name=$1
+
+# Vérifier si le fichier [nom].txt existe
+if [ -e "${tbl_name}.txt" ]
+then
+    # Le fichier existe
+    echo "Le fichier ${tbl_name}.txt existe"
+    echo "Traitement en cours..."
+    
+    # --- Ici tu mettras le code de ton TP précédent ---
+    # Par exemple :
+    # cat "${tbl_name}.txt"
+    # ou autre traitement selon ton TP précédent
+    
+else
+    # Le fichier n'existe pas
+    echo "Erreur : Le fichier ${tbl_name}.txt n'existe pas dans le répertoire courant"
+    echo "Usage: $0 nom_de_la_table"
+    echo "Le fichier nom_de_la_table.txt doit exister dans le répertoire courant"
+    exit 1
+fi
