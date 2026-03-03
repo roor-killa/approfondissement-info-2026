@@ -1,0 +1,36 @@
+# --- PARTIE A ---
+
+# 1. Affiche le répertoire courant
+pwd
+
+# 2. Création de l'arborescence (en une seule commande)
+mkdir -p listes-electorales-martinique/data/nord listes-electorales-martinique/data/sud listes-electorales-martinique/data/centre listes-electorales-martinique/scripts listes-electorales-martinique/rapports
+
+# 3. Création des fichiers dans data/nord
+cd listes-electorales-martinique/data/nord
+touch grand-riviere.txt trinite.txt marigot.txt
+
+# 4. Ajout du texte
+echo "Villes du Nord de la Martinique" > grand-riviere.txt
+echo "Villes du Nord de la Martinique" > trinite.txt
+echo "Villes du Nord de la Martinique" > marigot.txt
+
+# 5. Affichage avec un pipe (envoi du contenu vers la commande less)
+cat *.txt | less
+
+
+# --- PARTIE B ---
+# (On remonte à la racine du projet pour la suite)
+cd ../../..
+
+# 1. Afficher uniquement les listes de Fort-de-France
+grep "Fort-de-France" listes-electorales-martinique/data/listes.csv
+
+# 2. Compter le nombre de listes sur Fort-de-France
+grep "Fort-de-France" listes-electorales-martinique/data/listes.csv | wc -l
+
+# 3. Afficher trié alphabétiquement (utilisation du pipe comme vu en CM)
+cat listes-electorales-martinique/data/listes.csv | sort
+
+# 4. Extraire la colonne demandée
+cat listes-electorales-martinique/data/listes.csv | cut -d',' -f2
