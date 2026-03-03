@@ -1,0 +1,54 @@
+Partie A : 
+
+1 : pwd = Affichage du dossier dans lequel on se trouves dans le terminal 
+
+
+
+2 : mkdir -p listes-electorales-martinique/data/{nord,sud,centre} listes-electorales-martinique/{scripts,rapports}
+
+Réponse : création d'un seul coup, la structure de dossier que l'on souhaites. 
+
+3 : touch listes-electorales-martinique/data/nord/grand-riviere.txt \
+      listes-electorales-martinique/data/nord/trinite.txt \
+      listes-electorales-martinique/data/nord/marigot.txt
+
+Réponse : Crée des fichiers texte vide dans le dossier du nord. 
+
+4 : echo "Villes du Nord de la Martinique" > listes-electorales-martinique/data/nord/grand-riviere.txt
+
+Réponse : ajoute dans les fichiers textes la phrase demander qui est donc "Villes du Nord de la Martinique" 
+
+5 : cat listes-electorales-martinique/data/nord/*.txt
+
+Affiche ce qu'il y'a écrit dans tout les fichiers texte, du dossier Nord 
+
+
+Partie B : 
+
+1 : cat > listes-electorales-martinique/data/listes.csv << EOF
+commune,liste,ordre,nom,prenom
+Fort-de-France,COMBAT OUVRIER,1,JEAN-MARIE,Gabriel
+Fort-de-France,COMBAT OUVRIER,1,MARTHE-DITE-SURELLY,Marie-Hellen
+Fort-de-France,DEMOCRATES ET PROGRESSISTES,2,LAGUERRE,Didier
+Fort-de-France,DEMOCRATES ET PROGRESSISTES,2,CHANDEY,Annie
+EOF
+
+Cette commande crée un fichier CSV avec toutes les informations sur les listes électorales, et on obtiens un fichier, listes.csv
+
+2 : grep "Fort-de-France" listes-electorales-martinique/data/listes.csv
+
+Le Grep cherche dans le fichier toutes les lignes qui contiennent "Fort de France"
+
+3 : grep -c "Fort-de-France" listes-electorales-martinique/data/listes.csv
+
+ Le -c compte le nombres de lignes correspondant à la recherche, il y'a donc 4 ligne enregistrées pour Fort-de-France
+
+4 : tail -n +2 listes-electorales-martinique/data/listes.csv | sort -t',' -k4
+
+Le Tail -n +2 enlève la première ligne pour ne trier que les données , et sort -t ',' -k4 trie par la 4eme colonne en utilisant la virgule comme séparateur. 
+
+5 : cut -d',' -f2 listes-electorales-martinique/data/listes.csv
+
+Le cut prends la deuxième colonne (-f2) en séparant avec les champs avec ",". 
+
+
