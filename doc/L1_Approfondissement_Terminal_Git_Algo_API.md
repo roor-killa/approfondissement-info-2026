@@ -183,7 +183,7 @@ listes-electorales-martinique/
 
 ### Partie B — Recherche et filtrage (30 min)
 
-1. Crée un fichier `data/listes.csv` avec ce contenu :
+1. Crée un fichier `data/listes.csv` avec ce contenu à partir du document liste_candidat_municipales_2026.pdf :
 ```
 commune,liste,ordre, nom, prenom
 Fort-de-France, COMBAT OUVRIER, 1, JEAN-MARIE, Gabriel
