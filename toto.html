@@ -76,19 +76,25 @@ class File:
 
 def fusion(f1, f2):
     f3 = File()
-    while f1.file_vide() != True  and f2.file_vide() != True:
+    f1.enfiler('#')
+    f2.enfiler('#')
+    while f1.tete_file() != '#' and f2.tete_file() != '#':
         if f1.tete_file() > f2.tete_file():
             f3.enfiler(f2.tete_file())
+            f2.enfiler(f2.tete_file())
             f2.defiler()
         else:
             f3.enfiler(f1.tete_file())
+            f1.enfiler(f1.tete_file())
             f1.defiler()
-    while f1.file_vide() != True :
+    while f1.tete_file() != '#':
         f3.enfiler(f1.tete_file())
+        f1.enfiler(f1.tete_file())
         f1.defiler()
     f1.defiler()
-    while f2.file_vide() != True :
+    while f2.tete_file() != '#':
         f3.enfiler(f2.tete_file())
+        f2.enfiler(f2.tete_file())
         f2.defiler()
     f2.defiler()
     return f3
