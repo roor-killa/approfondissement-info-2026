@@ -21,143 +21,84 @@
         <p><button>Valider</button></p>   
     </body>
 </html>
-#!/bin/bash
+import random
+class File:
+    def __init__(self):
+        self.tab = []
 
-# Vérifier qu'un paramètre a été fourni
-if [ $# -ne 1 ]
-then
-    echo "Erreur : Veuillez fournir un nom de table"
-    echo "Usage: $0 nom_de_la_table"
-    exit 1
-fi
+    def file_vide(self):
+        return self.tab == []
 
-# Récupérer le nom de la table
-tbl_name=$1
+    def enfiler(self, v):
+        self.tab.append(v)
 
-# Vérifier si le fichier [nom].txt existe
-if [ -e "${tbl_name}.txt" ]
-then
-    # Le fichier existe
-    echo "Le fichier ${tbl_name}.txt existe"
-    echo "Traitement en cours..."
-    
-    # --- Ici tu mettras le code de ton TP précédent ---
-    # Par exemple :
-    # cat "${tbl_name}.txt"
-    # ou autre traitement selon ton TP précédent
-    
-else
-    # Le fichier n'existe pas
-    echo "Erreur : Le fichier ${tbl_name}.txt n'existe pas dans le répertoire courant"
-    echo "Usage: $0 nom_de_la_table"
-    echo "Le fichier nom_de_la_table.txt doit exister dans le répertoire courant"
-    exit 1
-fi
-------------------------------------------------------
-#include <stdio.h>
+    def defiler(self): # on ne dÃ©file que si la file n'est pas vide
+        if not self.file_vide():
+            self.tab.pop(0)
 
-#define MAX 100
-#define ERROR -9999
+    def tete(self):
+        if not self.file_vide(): # que si la file n'est pas vide
+            return self.tab[0]
+        else:
+            return None
 
-/* liste d'entiers positif ou nul en repr�sentation contigu� */
-typedef struct l_int {
-  int A[MAX];
-  int lg;
-} liste_entier; 
+    def affiche_file(self):
+        print("-------")
+        for i in range(len(self.tab)):
+            print(self.tab[len(self.tab)-i-1],' ',end='')
+        print()
 
-liste_entier init_liste(liste_entier l) {
-  l.lg=0;
-  return l;
-}
-
-int longueur(liste_entier l) {
-  return l.lg;
-}
-
-int ieme(liste_entier l, int rang) {
-  if ((1<= rang) && (rang <= l.lg)) {
-    return l.A[rang-1];
-  } else {
-    return ERROR;
-  }
-}
-
-liste_entier inserer(liste_entier l, int rang, int element) {
-  int i;
-  if ((1<= rang) && (rang <= l.lg+1)) {
-    if (l.lg+1<=MAX) {
-      i=l.lg;
-      while (i>=rang) {
-	      l.A[i]=l.A[i-1];
-	      i--;
-      }
-      l.A[rang-1]=element;
-      l.lg++;
-    }
-  }
-  return l;
-}
-
-liste_entier supprimer(liste_entier l, int rang) {
-  int i;
-  if ((1<= rang) && (rang <= l.lg)) {
-    i=rang-1;
-    while (i<l.lg-1) {
-      l.A[i]=l.A[i+1];
-      i++;
-    }
-    l.lg--;
-  }
-  return l;
-}
+def fusion(f1, f2):
+    f3 = File()
+    f1.enfiler('#')
+    f2.enfiler('#')
+    while f1.tete() != '#' and f2.tete() != '#' :
+        if f1.tete() > f2.tete():
+            f3.enfiler(f2.tete())
+            f2.enfiler(f2.tete())
+            f2.defiler()
+        else :
+            f3.enfiler(f1.tete())
+            f1.enfiler(f1.tete())
+            f1.defiler()
+    while f1.tete() != '#':
+        f3.enfiler(f1.tete())
+        f1.enfiler(f1.tete())
+        f1.defiler()
+    f1.defiler()
+    while f2.tete() != '#':
+        f3.enfiler(f2.tete())
+        f2.enfiler(f2.tete())
+        f2.defiler()
+    f2.defiler()
+    return f3
 
 
-int suffixe(liste_entier l1, liste_entier l2) {
-    int i, debut;
-    
-    if (longueur(l2) > longueur(l1))
-        return 0;
-    
-    debut = longueur(l1) - longueur(l2);
-    
-    for (i = 0; i < longueur(l2); i++) {
-        if (l1.A[debut + i] != l2.A[i])
-            return 0;
-    }
-    return 1;
-}
+tab = []
+for i in range(10):
+    tab.append(random.randint(1,50))
+tab.sort()
 
 
-void afficher(liste_entier l){
-  int i;
-  for (i=0;i<l.lg;i++) {
-    printf("%d ",l.A[i]);
-  }
-  printf("\n");
-}
 
-int main() {
-    liste_entier liste1, liste2;
-    int tab1[] = {1, 2, 3, 4, 5};
-    int tab2[] = {3, 4, 5};
-    int i;
+F1 = File()
+F2 = File()
 
-    liste1 = init_liste(liste1);
-    liste2 = init_liste(liste2);
+for nb in tab:
+    F1.enfiler(nb)
 
-    for (i = 0; i < 5; i++)
-        liste1 = inserer(liste1, i+1, tab1[i]);
+tab2 = []
+for i in range(10):
+    tab2.append(random.randint(1,50))
+tab2.sort()
+for nb in tab2:
+    F2.enfiler(nb)
 
-    for (i = 0; i < 3; i++)
-        liste2 = inserer(liste2, i+1, tab2[i]);
+F1.affiche_file()
 
-    printf("Liste 1 : "); afficher(liste1);
-    printf("Liste 2 : "); afficher(liste2);
+F2.affiche_file()
 
-    if (suffixe(liste1, liste2))
-        printf("liste2 EST un suffixe de liste1\n");
-    else
-        printf("liste2 N'EST PAS un suffixe de liste1\n");
-
-    return 0;
-}
+F3 = fusion(F1, F2)
+F3.affiche_file()
+F2.affiche_file()
+F1.affiche_file()
