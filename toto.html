@@ -21,3 +21,69 @@
         <p><button>Valider</button></p>   
     </body>
 </html>
+import random
+class File:
+    def __init__(self):
+        self.tab = []
+
+    def file_vide(self):
+        return self.tab == []
+
+    def enfiler(self, v):
+        self.tab.append(v)
+
+    def defiler(self): # on ne dÃ©file que si la file n'est pas vide
+        if not self.file_vide():
+            self.tab.pop(0)
+
+    def tete(self):
+        if not self.file_vide(): # que si la file n'est pas vide
+            return self.tab[0]
+        else:
+            return None
+
+    def affiche_file(self):
+        print("-------")
+        for i in range(len(self.tab)):
+            print(self.tab[len(self.tab)-i-1],' ',end='')
+        print()
+
+def fusion(f1, f2):
+    f3 = File()
+    while not f1.file_vide() and (not f2.file_vide()):
+        if f1.tete() > f2.tete():
+            f3.enfiler(f2.tete())
+            f2.defiler()
+        else :
+            f3.enfiler(f1.tete())
+            f1.defiler()
+    while not f1.file_vide() :
+        f3.enfiler(f1.tete())
+        f1.defiler()
+    while not f2.file_vide():
+        f3.enfiler(f2.tete())
+        f2.defiler()
+    return f3
+
+
+tab = []
+for i in range(10):
+    tab.append(random.randint(1,50))
+tab.sort()
+F1 = File()
+F2 = File()
+for nb in tab:
+    F1.enfiler(nb)
+tab2 = []
+for i in range(10):
+    tab2.append(random.randint(1,50))
+tab2.sort()
+for nb in tab2:
+    F2.enfiler(nb)
+F1.affiche_file()
+F2.affiche_file()
+F3 = fusion(F1, F2)
+F3.affiche_file()
+F2.affiche_file()
+F1.affiche_file()
+
