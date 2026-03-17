@@ -1,0 +1,31 @@
+REPONSES QUESTIONS A 
+
+Répertoire courant : C:\Users\19gem\listes-electorales-martinique
+
+Contenu des fichiers nord :
+grand-riviere.txt : Villes du Nord de la Martinique
+trinite.txt       : Villes du Nord de la Martinique
+marigot.txt       : Villes du Nord de la Martinique
+
+REPONSES QUESTIONS B
+
+Lignes Fort-de-France :
+Fort-de-France, COMBAT OUVRIER, 1, JEAN-MARIE, Gabriel
+Fort-de-France, COMBAT OUVRIER, 1, MARTHE-DITE-SURELLY, Marie-Hellen
+Fort-de-France, DEMOCRATES ET PROGRESSISTES, 2, LAGUERRE, Didier
+Fort-de-France, DEMOCRATES ET PROGRESSISTES, 2, CHANDEY, Annie
+
+Nombre de listes sur Fort-de-France : 4
+
+Noms triés alphabétiquement :
+CHANDEY
+JEAN-MARIE
+LAGUERRE
+MARTHE-DITE-SURELLY
+
+Colonne commune uniquement :
+commune
+Fort-de-France
+Fort-de-France
+Fort-de-France
+Fort-de-France
