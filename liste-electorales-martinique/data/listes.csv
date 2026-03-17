@@ -1,5 +1,16 @@
-commune,liste,ordre, nom, prenom
-Fort-de-France, COMBAT OUVRIER, 1, JEAN-MARIE, Gabriel
-Fort-de-France, COMBAT OUVRIER, 1, MARTHE-DITE-SURELLY, Marie-Hellen
-Fort-de-France, DEMOCRATES ET PROGRESSISTES, 2, LAGUERRE, Didier
-Fort-de-France, DEMOCRATES ET PROGRESSISTES, 2, CHANDEY, Annie
+commune;liste;ordre;nom;prenom;
+Fort-de France;Combat Ouvrier;1;JEAN-MARIE;Gabriel;
+Fort-de France;Combat Ouvrier;1;MARTHE-DITE-SURELLY;Marie-Hellen;
+Fort-de France;Democrates et Progessif;2;LAGUERRE;Didier;
+Fort-de France;Democrates et Progessif;2;CHANDEY; Annie;
+Circonscription;Liste;ordre;nom;prénom;nationalité
+Fort-de-France;Combat Ouvrier;1;JEAN-MARIE;Gabriel;Française
+Fort-de-France;Combat Ouvrier;2;MARTHE-DITE-SURELLY;Marie-Hellen;Française
+Fort-de-France;Combat Ouvrier;3;MAUGEE;Louis;Française
+Fort-de-France;Combat Ouvrier;4;DIGONAL;Rosette;Française
+Fort-de-France;Combat Ouvrier;5;BONHEUR;Daniel;Française
+Fort-de-France;Combat Ouvrier;6;COLLOT;Annie;Française
+Fort-de-France;Combat Ouvrier;7;MARTAIL;Fred;Française
+Fort-de-France;Combat Ouvrier;8;SOREL;Véronique;Française
+Fort-de-France;Combat Ouvrier;9;BATTET;Michel;Française
+Fort-de-France;Combat Ouvrier;10;LEPRIX;Madjanie;Française
