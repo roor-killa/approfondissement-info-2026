@@ -1,0 +1,25 @@
+=== PARTIE A ===
+
+1. pwd  →  affiche le répertoire courant
+
+2. mkdir -p listes-electorales-martinique/{data/{nord,sud,centre},scripts,rapports}
+
+3. touch grand-riviere.txt \ trinite.txt \ marigot.txt
+
+4. echo "Villes du Nord de la Martinique" > grand-riviere.txt
+   echo "Villes du Nord de la Martinique" > trinite.txt
+   echo "Villes du Nord de la Martinique" > marigot.txt
+
+5. ls | xargs cat
+
+=== PARTIE B ===
+
+1. touch listes.csv ; nano listes.csv
+
+2. grep "Fort-de-France" listes.csv
+
+3. grep -c "Fort-de-France" listes.csv  →  résultat : 4
+
+4. sort -t',' -k4 listes.csv
+
+5. cut -d',' -f1 listes.csv
