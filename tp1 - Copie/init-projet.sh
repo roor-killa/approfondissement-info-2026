@@ -8,7 +8,7 @@ fi
 
 NOM_PROJET="$1"
 DATE_CREATION=$(date "+%d/%m/%Y à %H:%M")
-AUTEUR="GOUYER Samuel"
+AUTEUR="MENCE Mathis"
 
 mkdir -p "$NOM_PROJET"/{src,tests,docs}
 
