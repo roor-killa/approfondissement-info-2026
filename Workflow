@@ -1,1 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Connecté à l'IA via Telegram</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 500px; margin: 50px auto; padding: 20px; }
+        input, button { width: 100%; padding: 10px; margin: 10px 0; box-sizing: border-box; }
+        button { background-color: #0088cc; color: white; border: none; cursor: pointer; font-weight: bold; }
+        button:hover { background-color: #0077b5; }
+        #status { margin-top: 15px; font-weight: bold; }
+        .note { font-size: 0.8em; color: #555; }
+    </style>
+</head>
+<body>
 
+    <h2>Contacter une IA via Telegram</h2>
+    <p>Entrez votre Chat ID Telegram et votre message. L'IA vous répondra directement sur l'application !</p>
+    <p class="note">⚠️ Note : Vous devez d'abord avoir démarré une conversation avec notre bot (@TonNomDeBot) sur Telegram pour qu'il puisse vous répondre.</p>
+
+    <form id="n8nForm">
+        <input type="text" id="chatId" placeholder="Votre Chat ID Telegram (ex: 123456789)" required>
+        <input type="text" id="message" placeholder="Votre question pour l'IA..." required>
+        <button type="submit">Envoyer à n8n</button>
+    </form>
+
+    <div id="status"></div>
+
+    <script>
+        document.getElementById('n8nForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const chatId = document.getElementById('chatId').value;
+            const message = document.getElementById('message').value;
+            const statusDiv = document.getElementById('status');
+
+            // REMPLACE CETTE URL PAR L'URL DE TON WEBHOOK N8N
+            const webhookUrl = 'https://TON_URL_N8N/webhook/telegram-ia';
+
+            statusDiv.innerText = "Envoi en cours...";
+
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chatId: chatId, message: message })
+            })
+            .then(response => {
+                if(response.ok) {
+                    statusDiv.innerText = "Succès ! Vérifiez votre Telegram.";
+                    statusDiv.style.color = "green";
+                } else {
+                    statusDiv.innerText = "Erreur lors de la connexion à n8n.";
+                    statusDiv.style.color = "red";
+                }
+            })
+            .catch(error => {
+                statusDiv.innerText = "Erreur réseau.";
+                statusDiv.style.color = "red";
+            });
+        });
+    </script>
+</body>
+</html>
