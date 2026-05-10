@@ -36,7 +36,7 @@
             const statusDiv = document.getElementById('status');
 
             // REMPLACE CETTE URL PAR L'URL DE TON WEBHOOK N8N
-            const webhookUrl = 'https://TON_URL_N8N/webhook/telegram-ia';
+            const webhookUrl = 'https://kimi24.app.n8n.cloud/webhook-test/telegram-ia';
 
             statusDiv.innerText = "Envoi en cours...";
 
