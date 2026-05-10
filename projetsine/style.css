@@ -1,0 +1,739 @@
+/* ================================================================
+   style.css — Feuille de styles pour SINE Landing Page
+   Auteur : SINE Dev
+   Description : Design minimaliste streetwear/fashion
+                 Palette : Noir, Blanc, Gris anthracite
+================================================================ */
+
+
+/* ================================================================
+   1. VARIABLES CSS (Personnalisées)
+   Les variables CSS (ou "custom properties") permettent de définir
+   des valeurs réutilisables dans tout le fichier.
+   Convention : on les déclare dans :root (qui représente la balise <html>).
+   Avantage : si on veut changer une couleur, on la modifie UNE SEULE FOIS ici.
+================================================================ */
+:root {
+  /* --- Palette de couleurs --- */
+  --couleur-noir:        #080808;   /* Noir quasi-total (fond principal) */
+  --couleur-anthracite:  #1c1c1c;   /* Gris anthracite foncé (sections alternées) */
+  --couleur-gris-moyen:  #3a3a3a;   /* Gris moyen (bordures, séparateurs) */
+  --couleur-gris-clair:  #a0a0a0;   /* Gris clair (texte secondaire, labels) */
+  --couleur-blanc:       #f5f5f5;   /* Blanc cassé (texte principal) */
+  --couleur-blanc-pur:   #ffffff;   /* Blanc pur (titres, bouton CTA) */
+  --couleur-accent:      #e8e0d0;   /* Beige crème très léger (accents subtils) */
+
+  /* --- Typographie --- */
+  --font-display: 'Bebas Neue', sans-serif;   /* Police pour les grands titres */
+  --font-body:    'Montserrat', sans-serif;   /* Police pour le corps de texte */
+
+  /* --- Espacements (système cohérent) --- */
+  --espace-xs:   0.5rem;    /*  8px */
+  --espace-sm:   1rem;      /* 16px */
+  --espace-md:   2rem;      /* 32px */
+  --espace-lg:   4rem;      /* 64px */
+  --espace-xl:   8rem;      /* 128px */
+
+  /* --- Transitions globales --- */
+  --transition-rapide:  0.2s ease;
+  --transition-normale: 0.4s ease;
+
+  /* --- Largeur maximale du contenu (évite que le texte s'étale trop sur grand écran) --- */
+  --max-width: 1100px;
+}
+
+
+/* ================================================================
+   2. RESET & BASE
+   Le navigateur applique des styles par défaut (marges, paddings...).
+   On les remet à zéro pour partir d'une base propre et cohérente.
+================================================================ */
+
+/* box-sizing: border-box — Important !
+   Par défaut, si tu définis width: 200px et padding: 20px,
+   l'élément fait 240px. Avec border-box, le padding est INCLUS
+   dans les 200px. Beaucoup plus intuitif ! */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Style de base du document */
+html {
+  /* scroll-behavior: smooth — Le défilement vers les ancres (#hero, #contact)
+     se fait en douceur au lieu d'un saut brusque. */
+  scroll-behavior: smooth;
+  font-size: 16px; /* 1rem = 16px (base de notre système de taille) */
+}
+
+body {
+  background-color: var(--couleur-noir);
+  color: var(--couleur-blanc);
+  font-family: var(--font-body);
+  font-weight: 300;          /* Police fine pour un look élégant */
+  line-height: 1.7;          /* Interlignage (espace entre les lignes de texte) */
+  -webkit-font-smoothing: antialiased; /* Améliore le rendu des polices sur Mac/Chrome */
+  overflow-x: hidden;        /* Évite le scroll horizontal non voulu */
+}
+
+/* Supprime le soulignement et la couleur bleue par défaut des liens */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Supprime les puces des listes (si utilisées) */
+ul {
+  list-style: none;
+}
+
+/* Les images ne débordent jamais de leur conteneur */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+
+/* ================================================================
+   3. ANIMATIONS GLOBALES
+   @keyframes définit les étapes d'une animation CSS.
+   On les appelle ensuite avec la propriété "animation:".
+================================================================ */
+
+/* Animation d'apparition en fondu (fade) depuis le bas */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px); /* Commence 30px plus bas */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);    /* Arrive à sa position normale */
+  }
+}
+
+/* Animation de la flèche de scroll (rebond vers le bas) */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(10px); }
+}
+
+/* Animation d'apparition simple (fondu) */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+
+/* ================================================================
+   4. EN-TÊTE (HEADER)
+================================================================ */
+.site-header {
+  /* position: fixed — L'en-tête reste visible même en scrollant */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100; /* Au-dessus de tous les autres éléments */
+
+  /* Flexbox — Technique CSS moderne pour aligner des éléments.
+     display: flex : active Flexbox sur ce conteneur.
+     Les enfants directs deviennent des "flex items". */
+  display: flex;
+  align-items: center;    /* Centre verticalement le logo et le menu */
+  justify-content: space-between; /* Logo à gauche, menu à droite */
+
+  padding: var(--espace-sm) var(--espace-md);
+
+  /* Fond semi-transparent avec flou (effet "glassmorphisme") */
+  background-color: rgba(8, 8, 8, 0.85);
+  backdrop-filter: blur(12px);     /* Flou sur ce qui est derrière l'en-tête */
+  -webkit-backdrop-filter: blur(12px); /* Préfixe pour Safari */
+
+  border-bottom: 1px solid var(--couleur-gris-moyen);
+
+  /* Animation d'apparition au chargement */
+  animation: fadeIn 1s ease forwards;
+}
+
+/* Logo de la marque dans l'en-tête */
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  letter-spacing: 0.15em; /* Espacement entre les lettres */
+  color: var(--couleur-blanc-pur);
+  transition: color var(--transition-rapide);
+}
+
+.logo:hover {
+  color: var(--couleur-accent); /* Change de couleur au survol */
+}
+
+/* Liens de navigation */
+.nav-links {
+  display: flex;
+  gap: var(--espace-md); /* gap : espace entre les éléments flex */
+}
+
+.nav-links a {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase; /* Met le texte en MAJUSCULES (CSS, pas HTML) */
+  color: var(--couleur-gris-clair);
+  transition: color var(--transition-rapide);
+
+  /* Soulignement animé au survol (pseudo-élément ::after) */
+  position: relative;
+}
+
+/* Pseudo-élément ::after : crée un élément décoratif APRÈS le contenu du lien.
+   On l'utilise ici pour faire une ligne animée en bas du texte. */
+.nav-links a::after {
+  content: '';              /* Obligatoire pour les pseudo-éléments */
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;               /* Commence à 0 (invisible) */
+  height: 1px;
+  background-color: var(--couleur-blanc-pur);
+  transition: width var(--transition-normale); /* Animation sur la largeur */
+}
+
+.nav-links a:hover {
+  color: var(--couleur-blanc-pur);
+}
+
+.nav-links a:hover::after {
+  width: 100%; /* La ligne s'étend sur toute la largeur au survol */
+}
+
+
+/* ================================================================
+   5. SECTION HÉRO
+================================================================ */
+.hero {
+  /* min-height: 100vh — La section occupe AU MOINS toute la hauteur
+     de la fenêtre du navigateur (viewport height).
+     100vh = 100% de la hauteur visible. */
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;   /* Les enfants s'empilent verticalement */
+  justify-content: center;  /* Centrage vertical */
+  align-items: center;      /* Centrage horizontal */
+  text-align: center;       /* Centrage du texte */
+
+  /* Texture de fond subtile (gradient + noise simulé via des lignes) */
+  background-color: var(--couleur-noir);
+  background-image:
+    /* Ligne horizontale décorative au centre */
+    linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(255,255,255,0.03) 50%,
+      transparent 100%
+    );
+
+  padding: var(--espace-xl) var(--espace-md);
+  padding-top: calc(var(--espace-xl) + 60px); /* Compense la hauteur du header fixe */
+
+  /* Bordure décorative sur les côtés */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ligne décorative verticale à gauche (pseudo-élément ::before sur .hero) */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: var(--espace-md);
+  width: 1px;
+  height: 60%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--couleur-gris-moyen),
+    transparent
+  );
+}
+
+/* Ligne décorative verticale à droite */
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  right: var(--espace-md);
+  width: 1px;
+  height: 60%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--couleur-gris-moyen),
+    transparent
+  );
+}
+
+/* Conteneur du contenu héro */
+.hero-content {
+  max-width: var(--max-width);
+  z-index: 1; /* Au-dessus des décorations ::before et ::after */
+}
+
+/* Petit texte discret au-dessus du titre */
+.hero-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--couleur-gris-clair);
+  margin-bottom: var(--espace-sm);
+
+  /* Animation différée (apparaît en premier) */
+  animation: fadeInUp 0.8s ease 0.2s both;
+  /* "both" : l'animation s'applique avant et après son exécution */
+}
+
+/* Grand titre SINE. */
+.hero-title {
+  font-family: var(--font-display);
+  /* clamp(min, idéal, max) : taille de police RESPONSIVE.
+     Sur mobile : 5rem | Sur desktop : 18vw (18% de la largeur du viewport) | Max : 14rem */
+  font-size: clamp(5rem, 18vw, 14rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--couleur-blanc-pur);
+
+  /* Effet de texte creux (contour uniquement) */
+  -webkit-text-stroke: 1px rgba(255,255,255,0.15);
+
+  animation: fadeInUp 0.8s ease 0.4s both;
+}
+
+/* Slogan */
+.hero-tagline {
+  font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  color: var(--couleur-gris-clair);
+  margin-top: var(--espace-sm);
+  margin-bottom: var(--espace-lg);
+
+  animation: fadeInUp 0.8s ease 0.6s both;
+}
+
+/* Bouton CTA (Call To Action) */
+.cta-button {
+  display: inline-block;
+  padding: 1rem 3rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--couleur-noir);
+  background-color: var(--couleur-blanc-pur);
+  border: 1px solid var(--couleur-blanc-pur);
+  cursor: pointer;
+  transition:
+    background-color var(--transition-normale),
+    color var(--transition-normale),
+    transform var(--transition-rapide);
+
+  animation: fadeInUp 0.8s ease 0.8s both;
+}
+
+/* Effet inversé au survol */
+.cta-button:hover {
+  background-color: transparent;
+  color: var(--couleur-blanc-pur);
+  transform: translateY(-2px); /* Légère élévation */
+}
+
+/* Indicateur de défilement (flèche rebondissante) */
+.scroll-indicator {
+  position: absolute;
+  bottom: var(--espace-md);
+  left: 50%;
+  transform: translateX(-50%); /* Centrage horizontal parfait */
+
+  animation: fadeIn 1s ease 1.5s both;
+}
+
+.scroll-indicator span {
+  display: block;
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(
+    to bottom,
+    var(--couleur-blanc-pur),
+    transparent
+  );
+  margin: 0 auto;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+
+/* ================================================================
+   6. SECTION PRÉSENTATION (ABOUT)
+================================================================ */
+.about {
+  background-color: var(--couleur-anthracite);
+  padding: var(--espace-xl) var(--espace-md);
+
+  /* Bordure supérieure subtile */
+  border-top: 1px solid var(--couleur-gris-moyen);
+}
+
+.about-content {
+  max-width: var(--max-width);
+  margin: 0 auto; /* Centre horizontalement le bloc dans la page */
+}
+
+/* Numéro de section */
+.section-number {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 5rem;
+  color: rgba(255,255,255,0.05); /* Très transparent — effet décoratif */
+  line-height: 1;
+  margin-bottom: -1.5rem;       /* Fait "chevaucher" le titre en dessous */
+  user-select: none;            /* Non sélectionnable par l'utilisateur */
+}
+
+/* Titre de la section About */
+.about-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  letter-spacing: 0.05em;
+  color: var(--couleur-blanc-pur);
+  margin-bottom: var(--espace-md);
+}
+
+/* Texte de présentation */
+.about-text {
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  font-weight: 300;
+  color: var(--couleur-gris-clair);
+  max-width: 600px; /* Limite la longueur des lignes pour la lisibilité */
+  line-height: 1.9;
+  margin-bottom: var(--espace-md);
+}
+
+/* Ligne séparatrice décorative */
+.divider {
+  width: 60px;
+  height: 1px;
+  background-color: var(--couleur-gris-clair);
+  margin-bottom: var(--espace-lg);
+}
+
+/* Conteneur des statistiques (3 colonnes) */
+.stats {
+  display: flex;
+  gap: var(--espace-xl);
+  flex-wrap: wrap; /* Les colonnes passent à la ligne si l'écran est trop petit */
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column; /* Chiffre au-dessus, label en dessous */
+  gap: var(--espace-xs);
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: var(--couleur-blanc-pur);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--couleur-gris-clair);
+}
+
+
+/* ================================================================
+   7. SECTION CONTACT (FORMULAIRE)
+================================================================ */
+.contact {
+  background-color: var(--couleur-noir);
+  padding: var(--espace-xl) var(--espace-md);
+  border-top: 1px solid var(--couleur-gris-moyen);
+}
+
+.contact-inner {
+  max-width: 700px; /* Formulaire plus étroit pour mieux guider l'œil */
+  margin: 0 auto;
+}
+
+/* En-tête de la section contact */
+.contact-header {
+  margin-bottom: var(--espace-lg);
+}
+
+.contact-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  letter-spacing: 0.05em;
+  color: var(--couleur-blanc-pur);
+  margin-bottom: var(--espace-sm);
+}
+
+.contact-subtitle {
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--couleur-gris-clair);
+  letter-spacing: 0.05em;
+}
+
+/* LE FORMULAIRE */
+.contact-form {
+  display: flex;
+  flex-direction: column; /* Champs empilés verticalement */
+  gap: var(--espace-md);  /* Espace entre chaque champ */
+}
+
+/* Ligne avec 2 champs côte à côte */
+.form-row {
+  display: flex;
+  gap: var(--espace-md);
+}
+
+/* Groupe label + input */
+.form-group {
+  display: flex;
+  flex-direction: column; /* Label au-dessus, input en dessous */
+  gap: var(--espace-xs);
+  flex: 1; /* flex: 1 — occupe tout l'espace disponible (pour .form-row) */
+}
+
+/* Labels */
+label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--couleur-gris-clair);
+}
+
+/* Champs de saisie (input) */
+input[type="text"],
+input[type="email"] {
+  /* [type="text"] : sélecteur d'attribut — cible uniquement
+     les <input> dont l'attribut type vaut "text" (ou "email"). */
+
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid var(--couleur-gris-moyen); /* Soulignement uniquement */
+  padding: 0.75rem 0;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--couleur-blanc);
+  width: 100%; /* Prend toute la largeur de son conteneur */
+  outline: none; /* Supprime le contour bleu natif du navigateur */
+  transition: border-color var(--transition-normale);
+}
+
+/* Style du placeholder */
+input::placeholder {
+  color: rgba(160, 160, 160, 0.4);
+  font-style: italic;
+}
+
+/* Quand l'input est sélectionné (focus) */
+input:focus {
+  border-bottom-color: var(--couleur-blanc-pur); /* Soulignement devient blanc */
+}
+
+/* Quand l'input est valide ET a du contenu */
+input:not(:placeholder-shown):valid {
+  border-bottom-color: var(--couleur-accent); /* Soulignement crème */
+}
+
+/* Bouton de soumission */
+.submit-button {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centre le texte + la flèche */
+  gap: var(--espace-sm);
+
+  width: 100%; /* Prend toute la largeur du formulaire */
+  padding: 1.2rem var(--espace-md);
+  margin-top: var(--espace-sm);
+
+  background-color: var(--couleur-blanc-pur);
+  color: var(--couleur-noir);
+  border: 1px solid var(--couleur-blanc-pur);
+
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+
+  cursor: pointer; /* Change le curseur en "main" au survol */
+  transition:
+    background-color var(--transition-normale),
+    color var(--transition-normale),
+    transform var(--transition-rapide);
+}
+
+.submit-button:hover {
+  background-color: transparent;
+  color: var(--couleur-blanc-pur);
+  transform: translateY(-2px);
+}
+
+/* Flèche dans le bouton (légèrement animée) */
+.btn-arrow {
+  font-size: 1.1rem;
+  transition: transform var(--transition-normale);
+}
+
+.submit-button:hover .btn-arrow {
+  transform: translateX(6px); /* La flèche glisse vers la droite au survol */
+}
+
+
+/* ================================================================
+   8. PIED DE PAGE (FOOTER)
+================================================================ */
+.site-footer {
+  background-color: var(--couleur-anthracite);
+  border-top: 1px solid var(--couleur-gris-moyen);
+  padding: var(--espace-md);
+
+  /* Flexbox pour 3 colonnes : marque | nav | copyright */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Passe à la ligne sur mobile */
+  gap: var(--espace-md);
+}
+
+/* Logo dans le footer */
+.footer-logo {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 0.1em;
+  color: var(--couleur-blanc-pur);
+  margin-bottom: var(--espace-xs);
+}
+
+.footer-tagline {
+  font-size: 0.75rem;
+  color: var(--couleur-gris-clair);
+  letter-spacing: 0.05em;
+}
+
+/* Navigation du footer */
+.footer-nav {
+  display: flex;
+  gap: var(--espace-md);
+  flex-wrap: wrap;
+}
+
+.footer-nav a {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--couleur-gris-clair);
+  transition: color var(--transition-rapide);
+}
+
+.footer-nav a:hover {
+  color: var(--couleur-blanc-pur);
+}
+
+/* Mention copyright */
+.footer-copy p {
+  font-size: 0.7rem;
+  color: rgba(160, 160, 160, 0.5);
+  letter-spacing: 0.05em;
+}
+
+
+/* ================================================================
+   9. RESPONSIVE DESIGN (Media Queries)
+   Les @media queries appliquent des styles UNIQUEMENT lorsque
+   certaines conditions sont remplies (ex: taille de l'écran).
+   Convention "mobile-first" : on écrit d'abord pour les grands écrans,
+   puis on adapte pour les petits avec max-width.
+================================================================ */
+
+/* --- Tablettes et petits ordinateurs (max 768px) --- */
+@media (max-width: 768px) {
+
+  /* Réduit les espacements généraux sur mobile */
+  :root {
+    --espace-xl: 5rem;
+    --espace-lg: 3rem;
+  }
+
+  /* Navigation : empile les liens du menu */
+  .nav-links {
+    gap: var(--espace-sm);
+  }
+
+  /* Les 2 champs côte à côte passent en colonne sur mobile */
+  .form-row {
+    flex-direction: column;
+  }
+
+  /* Le footer se centre sur mobile */
+  .site-footer {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  /* Stats en colonne sur mobile */
+  .stats {
+    gap: var(--espace-md);
+  }
+
+  /* Les lignes décoratives du héro disparaissent (pas de place) */
+  .hero::before,
+  .hero::after {
+    display: none;
+  }
+
+}
+
+/* --- Petits mobiles (max 480px) --- */
+@media (max-width: 480px) {
+
+  /* Réduction des paddings latéraux */
+  .site-header,
+  .hero,
+  .about,
+  .contact,
+  .site-footer {
+    padding-left: var(--espace-sm);
+    padding-right: var(--espace-sm);
+  }
+
+  /* Menu de navigation plus compact */
+  .nav-links {
+    gap: var(--espace-xs);
+  }
+
+  .nav-links a {
+    font-size: 0.65rem;
+  }
+
+  /* Bouton plus petit */
+  .cta-button {
+    padding: 0.9rem 2rem;
+  }
+
+}

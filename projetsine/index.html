@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SINE — La nouvelle ère du vêtement. Inscris-toi pour recevoir nos actualités.">
+  <title>SINE — Luxe Streetwear</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="site-header">
+    <a href="#" class="logo" aria-label="SINE — Accueil">SINE.</a>
+    <nav class="nav-links" aria-label="Navigation principale">
+      <a href="#hero">Accueil</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section id="hero" class="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Collection 2026</p>
+      <h1 class="hero-title">SINE.</h1>
+      <p class="hero-tagline">Luxe Streetwear.</p>
+      <a href="#contact" class="cta-button">Découvrir</a>
+    </div>
+    <div class="scroll-indicator" aria-hidden="true">
+      <span></span>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="about-content">
+      <span class="section-number">01</span>
+      <h2 class="about-title">Notre Vision</h2>
+      <p class="about-text">
+        SINE naît d'une obsession pour le détail, la coupe et le silence du superflu.
+        Chaque pièce est pensée pour durer — dans le temps, dans le style.
+      </p>
+      <div class="divider" aria-hidden="true"></div>
+      <div class="stats">
+        <div class="stat-item"><span class="stat-number">100%</span><span class="stat-label">Matières naturelles</span></div>
+        <div class="stat-item"><span class="stat-number">0</span><span class="stat-label">Superflu</span></div>
+        <div class="stat-item"><span class="stat-number">∞</span><span class="stat-label">Style</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="contact-inner">
+      <div class="contact-header">
+        <span class="section-number">02</span>
+        <h2 class="contact-title">Rejoins le mouvement</h2>
+        <p class="contact-subtitle">Sois le premier informé des nouvelles collections.</p>
+      </div>
+
+      <form class="contact-form" id="sine-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" name="nom" placeholder="Dupont" required>
+          </div>
+          <div class="form-group">
+            <label for="prenom">Prénom</label>
+            <input type="text" id="prenom" name="prenom" placeholder="Jean" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Adresse e-mail</label>
+          <input type="email" id="email" name="email" placeholder="jean.dupont@email.com" required>
+        </div>
+        <button type="submit" class="submit-button">
+          S'inscrire pour les infos
+          <span class="btn-arrow" aria-hidden="true">→</span>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-brand"><span class="footer-logo">SINE.</span><p class="footer-tagline">Luxe Streetwear.</p></div>
+    <div class="footer-copy"><p>&copy; 2026 SINE. Tous droits réservés.</p></div>
+  </footer>
+
+  <script>
+    const sineForm = document.getElementById('sine-form');
+
+    sineForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const btn = sineForm.querySelector('.submit-button');
+      btn.innerText = "Inscription...";
+      btn.disabled = true;
+
+      // Capture précise des données
+      const payload = {
+        nom: document.getElementById('nom').value.trim(),
+        prenom: document.getElementById('prenom').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        source: "Netlify"
+      };
+
+      // URL DE PRODUCTION N8N
+      const N8N_URL = 'https://eunis25.app.n8n.cloud/webhook/sine-contact';
+
+      try {
+        const response = await fetch(N8N_URL, {
+          method: 'POST',
+          mode: 'cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+          alert('Bienvenue dans l\'univers SINE.');
+          sineForm.reset();
+        } else {
+          alert('Erreur de serveur n8n.');
+        }
+      } catch (err) {
+        alert('Erreur de connexion. Vérifie ton webhook.');
+      } finally {
+        btn.innerText = "S'inscrire pour les infos";
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
