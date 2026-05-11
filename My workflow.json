@@ -1,0 +1,69 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "7cdfe5ba-641b-4258-b143-22feea59cf39",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "f227ec32-c417-42ca-babd-4670e13be744",
+      "name": "Webhook",
+      "webhookId": "7cdfe5ba-641b-4258-b143-22feea59cf39"
+    },
+    {
+      "parameters": {
+        "chatId": "6164190449",
+        "text": "=Nouveau message :  Nom : {{$json.body.nom}}  Message : {{$json.body.message}}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "995ca37b-7ccf-4d9e-a166-116561394eef",
+      "name": "Send a text message",
+      "webhookId": "88f02e32-29bb-443f-bba1-e6cb25e72ad3",
+      "credentials": {
+        "telegramApi": {
+          "id": "1BoIzhwa4t0OnZPG",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "80935ced-dd86-40e7-a2e9-d4f42c14008f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "8a85f7a145a1db2b66e4d09f56eb0196f9aa59130d7e0aa487c9e69ee232f33c"
+  },
+  "id": "4r8blmjaYQjd4wfX",
+  "tags": []
+}
